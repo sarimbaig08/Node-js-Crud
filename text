@@ -1,0 +1,44 @@
+import mongoose from "mongoose";
+
+const UIR =
+  "mongodb+srv://sarimbaig321:sarimkallu09@mongocrud.a4wrg3c.mongodb.net/";
+
+mongoose
+  .connect(UIR)
+  .then((res) => {
+    console.log("Connection successful");
+  })
+  .catch((err) => {
+    console.log(" error", err.message);
+  });
+
+const mongoSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    // required: true,
+  },
+  email: {
+    // required: true,
+  },
+});
+const collectionData = new mongoose.model("sarim", mongoSchema);
+
+const data = [
+  {
+    name: "Sarim",
+    email: "sarim@gmail.com",
+    company: "Designers Rockwall",
+  },
+  {
+    name: "Mirza",
+    email: "mirza@gmail.com",
+    company: "mirza's cafe",
+  },
+  {
+    name: "Baig",
+    email: "baig@gmail.com",
+    company: "Baig Tower",
+  },
+];
+
+collectionData.insertMany(data);
