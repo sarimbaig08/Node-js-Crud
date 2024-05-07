@@ -1,13 +1,29 @@
 import express from "express";
 const app = express();
 const PORT = process.env.PORT || 5000;
+import mongoose from "mongoose";
+import userModel from "./userSchema.js";
+
+const URI =
+  "mongodb+srv://sarimbaig321:sarimkallu09@mongocrud.a4wrg3c.mongodb.net/";
+
+mongoose
+  .connect(URI)
+  .then((res) => {
+    console.log("Db connected");
+  })
+  .catch((error) => {
+    console.log("Error", error.message);
+  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/api/postdata", (req, res) => {
+app.post("/api/postdata", async (req, res) => {
   try {
     console.log(req.body);
+    const userResponse = await userModel.create(req.body);
+    console.log(userResponse);
     res.json({
       message: "Record added successfully",
       record: req.body,
